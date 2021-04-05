@@ -1,0 +1,22 @@
+Our ERD contains 4 tables. 
+Our first table is our Location table which uses the UniqueID of each hotel as its primary key. 
+It contains:
+- Name
+- City
+- Address
+-Phone Number
+- AmountOfRooms 
+It has a 1 to many relationship with the Rooms table.
+
+The Rooms table has a UniqueID for the rooms as its Primary Key. 
+As each room is unique this seemed the best way to do it. It contains:
+- A bool on if it is PetFriendly
+- Location
+- RoomNickName
+- Price
+- BedRoomAmount 
+It has a 1 to many relationship with the RoomsAmenities Table
+
+The RoomsAmenities table has 2 Primary and Foreign keys. These are the RoomID which it shares with the Rooms table, and the AmenitiesID which it shares with the Amenities table
+
+The Amenities Table contains a unique ID as its primary key and an AmenitiyName row. 
