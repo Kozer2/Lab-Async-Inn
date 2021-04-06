@@ -5,4 +5,9 @@
 ![My Groups ERD](Assests/Lab11-ERD.jpg "ERD")
 
 
-[Description of ERD](Assests/Description.txt "description")
+
+[Description of ERD](assests/Description.txt "description")
+
+
+
+
