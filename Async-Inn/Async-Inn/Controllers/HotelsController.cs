@@ -8,17 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using Async_Inn.Data;
 using Async_Inn.Models;
 
+using Async_Inn.Data.Interfaces;
+
 namespace Async_Inn.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class HotelsController : ControllerBase
     {
-        private readonly AsyncInnDbContext _context;
 
-        public HotelsController(AsyncInnDbContext context)
+        private readonly AsyncInnDbContext _context;
+        private readonly IHotel hotelRepo;
+
+        public HotelsController(AsyncInnDbContext context, IHotel hotelRepo)
         {
             _context = context;
+            this.hotelRepo = hotelRepo;
         }
 
         // GET: api/Hotels
