@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Async_Inn.Data;
 using Async_Inn.Models;
+using Async_Inn.Data.Interfaces;
 
 namespace Async_Inn.Controllers
 {
@@ -15,10 +16,12 @@ namespace Async_Inn.Controllers
     public class AmentitiesController : ControllerBase
     {
         private readonly AsyncInnDbContext _context;
+        private readonly IAmentity amentityRepo;
 
-        public AmentitiesController(AsyncInnDbContext context)
+        public AmentitiesController(AsyncInnDbContext context, IAmentity amentityRepo)
         {
             _context = context;
+            this.amentityRepo = amentityRepo;
         }
 
         // GET: api/Amentities

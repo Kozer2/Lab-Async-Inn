@@ -46,7 +46,7 @@ namespace Async_Inn
 
             app.UseEndpoints(endpoints =>
             {
-                /*endpoints.MapControllers();*/
+                endpoints.MapControllers();
                 endpoints.MapGet("/hey", async context =>
                 {
                     throw new InvalidOperationException("There is no Hey path. You utter fool. Pathetic. Get out of my sight.");
