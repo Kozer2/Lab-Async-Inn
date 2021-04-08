@@ -10,7 +10,7 @@ namespace Async_Inn.Data.Interfaces
     {
         Task<IEnumerable<Hotel>> GetHotels();
         Task<Hotel> GetHotel(int id);
-        Task DeleteHotel(Hotel hotel);
+        Task<bool> DeleteHotel(int id);
         Task CreateHotel(Hotel hotel);
         Task<bool> PutHotel( Hotel hotel);
 

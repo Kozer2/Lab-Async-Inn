@@ -24,11 +24,16 @@ namespace Async_Inn.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteHotel(Hotel hotel)
+        public async Task<bool> DeleteHotel(int id)
         {
-            _context.Hotels.Remove(hotel);
+            Hotel hotel = await GetHotel(id);
+            if(hotel == null)
+            {
+                return false;
+            }
+            _context.Entry(hotel).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
-            
+            return true;
         }
 
         public async Task<Hotel> GetHotel(int id)

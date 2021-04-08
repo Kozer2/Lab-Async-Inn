@@ -1,4 +1,5 @@
 ﻿using Async_Inn.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,10 @@ namespace Async_Inn.Data.Interfaces
         
         Task<IEnumerable<Amentity>> GetAmentities();
         Task<Amentity> GetAmentity(int id);
-        Task DeleteAmentity(Amentity amentity);
+        Task<bool> DeleteAmentity(int id);
         Task CreateAmentity(Amentity amentity);
         Task<bool> PutAmentity(Amentity amentity);
-
+        
     }
 
 }

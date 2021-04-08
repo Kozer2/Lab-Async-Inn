@@ -15,3 +15,7 @@ Today we added in new structures to the lab. We removed the need to rely on the 
 some interface files and then created a service for them that used the methods we created in the interface to do the same thing that 
 DbContext was doing. 
 
+
+# Lab 13
+### 04/08/2021
+Routes: TBD

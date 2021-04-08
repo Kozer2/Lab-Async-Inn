@@ -15,27 +15,34 @@ namespace Async_Inn.Controllers
     [ApiController]
     public class AmentitiesController : ControllerBase
     {
-        private readonly AsyncInnDbContext _context;
+        /*private readonly AsyncInnDbContext _context;
         private readonly IAmentity amentityRepo;
 
         public AmentitiesController(AsyncInnDbContext context, IAmentity amentityRepo)
         {
             _context = context;
             this.amentityRepo = amentityRepo;
+        }*/
+
+        IAmentity _amentityRepo;
+        public AmentitiesController(IAmentity amentityRepo)
+        {
+
+            _amentityRepo = amentityRepo;
         }
 
         // GET: api/Amentities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Amentity>>> GetAmenities()
+        public async Task<IEnumerable<Amentity>> GetAmentities()
         {
-            return await _context.Amenities.ToListAsync();
+            return await _amentityRepo.GetAmentities();
         }
 
         // GET: api/Amentities/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Amentity>> GetAmentity(int id)
         {
-            var amentity = await _context.Amenities.FindAsync(id);
+            var amentity = await _amentityRepo.GetAmentity(id);
 
             if (amentity == null)
             {
@@ -55,23 +62,11 @@ namespace Async_Inn.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(amentity).State = EntityState.Modified;
-
-            try
+            if(!await _amentityRepo.PutAmentity(amentity))
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AmentityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+         
 
             return NoContent();
         }
@@ -81,8 +76,8 @@ namespace Async_Inn.Controllers
         [HttpPost]
         public async Task<ActionResult<Amentity>> PostAmentity(Amentity amentity)
         {
-            _context.Amenities.Add(amentity);
-            await _context.SaveChangesAsync();
+            
+            await _amentityRepo.CreateAmentity(amentity);
 
             return CreatedAtAction("GetAmentity", new { id = amentity.Id }, amentity);
         }

@@ -22,10 +22,16 @@ namespace Async_Inn.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAmentity(Amentity amentity)
+        public async Task<bool> DeleteAmentity(int id)
         {
-            _context.Amenities.Remove(amentity);
+            Amentity amentity = await GetAmentity(id);
+            if(amentity == null)
+            {
+                return false;
+            }
+            _context.Entry(amentity).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
+            return true;
 
         }
 
