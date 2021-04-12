@@ -22,10 +22,16 @@ namespace Async_Inn.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteRoom(Room room)
+        public async Task<bool> DeleteRoom(int id)
         {
-            _context.Rooms.Remove(room);
+            Room room = await GetRoom(id);
+            if (room == null)
+            {
+                return false;
+            }
+            _context.Entry(room).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
+            return true;
 
         }
 
@@ -67,6 +73,14 @@ namespace Async_Inn.Data
                 }
             }
 
+
         }
+
+        // create amentities for rooms
+        public Task CreateAmenity(int roomId, int amenityId)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
