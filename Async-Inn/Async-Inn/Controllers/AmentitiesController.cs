@@ -86,21 +86,12 @@ namespace Async_Inn.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAmentity(int id)
         {
-            var amentity = await _context.Amenities.FindAsync(id);
-            if (amentity == null)
-            {
-                return NotFound();
-            }
-
-            _context.Amenities.Remove(amentity);
-            await _context.SaveChangesAsync();
+            await _amentityRepo.DeleteAmentity(id);
+           
 
             return NoContent();
         }
 
-        private bool AmentityExists(int id)
-        {
-            return _context.Amenities.Any(e => e.Id == id);
-        }
+        
     }
 }

@@ -10,7 +10,7 @@ namespace Async_Inn.Data.Interfaces
     {
         Task<IEnumerable<Room>> GetRooms();
         Task<Room> GetRoom(int id);
-        Task DeleteRoom(Room room);
+        Task<bool> DeleteRoom(int id);
         Task CreateRoom(Room room);
         Task<bool> PutRoom(Room room);
 
