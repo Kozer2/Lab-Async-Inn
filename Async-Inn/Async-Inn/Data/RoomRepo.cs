@@ -91,9 +91,15 @@ namespace Async_Inn.Data
 
         }
 
-        public Task DeleteAmenity(int roomId, int amenityId)
+        public async Task<bool> RemoveAmentityFromRoom(int roomId, int amenityId)
         {
-            throw new NotImplementedException();
+            var roomAmenity = await _context.RoomAmenities.FindAsync(roomId, amenityId);
+            if (roomAmenity == null)
+                return false;
+
+            _context.RoomAmenities.Remove(roomAmenity);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Async_Inn.Data.Interfaces
 
         Task<bool> AddAmenityToRoom(int roomId, int amenityId);
 
-        Task DeleteAmenity(int roomId, int amenityId);
+        Task<bool> RemoveAmentityFromRoom(int roomId, int amenityId);
 
     }
 }

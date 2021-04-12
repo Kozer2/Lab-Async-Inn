@@ -93,6 +93,11 @@ namespace Async_Inn.Data
                     roomAmenity.AmenityId,
                 });
 
+            modelBuilder.Entity<RoomAmenity>()
+                .HasData(
+                    new RoomAmenity { RoomId = 1, AmenityId = 1 }
+                );
+
 
         }
 
