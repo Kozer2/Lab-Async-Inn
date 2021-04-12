@@ -8,11 +8,15 @@ namespace Async_Inn.Data.Interfaces
 {
    public interface IRoom
     {
-        Task<IEnumerable<Room>> GetRooms();
+        Task<List<Room>> GetRooms();
         Task<Room> GetRoom(int id);
         Task<bool> DeleteRoom(int id);
         Task CreateRoom(Room room);
         Task<bool> PutRoom(Room room);
+
+        Task<bool> AddAmenityToRoom(int roomId, int amenityId);
+
+        Task<bool> RemoveAmentityFromRoom(int roomId, int amenityId);
 
     }
 }
