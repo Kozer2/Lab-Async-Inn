@@ -86,8 +86,7 @@ namespace Async_Inn.Data
             );
 
 
-<<<<<<< Updated upstream
-=======
+
             modelBuilder.Entity<RoomAmenity>()
                 .HasKey(roomAmenity => new // anonymous type, similar to JS {}
                 {
@@ -100,6 +99,7 @@ namespace Async_Inn.Data
                     new RoomAmenity { RoomId = 1, AmenityId = 1 }
                 );
 
+
             modelBuilder.Entity<HotelRoom>()
                .HasKey(hotelRoom => new // anonymous type, similar to JS {}
                 {
@@ -110,7 +110,6 @@ namespace Async_Inn.Data
                    hotelRoom.PetFriendly,
                });
 
->>>>>>> Stashed changes
         }
 
 
@@ -120,21 +119,16 @@ namespace Async_Inn.Data
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Amentity> Amenities { get; set; }
-<<<<<<< Updated upstream
-=======
+
+
         public DbSet<RoomAmenity> RoomAmenities { get; set; }
         public DbSet<HotelRoom> HotelRooms { get; set; }
->>>>>>> Stashed changes
-
-        
 
 
 
-<<<<<<< Updated upstream
+      
 
-                public DbSet<RoomAmenity> RoomAmenities { get; set; }*/
-=======
->>>>>>> Stashed changes
+
 
     }
 }
