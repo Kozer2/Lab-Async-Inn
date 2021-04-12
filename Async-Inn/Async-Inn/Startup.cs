@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Async_Inn
 {
     public class Startup
     {
+
+
 
         public IConfiguration Configuration { get; }
 
@@ -36,6 +39,19 @@ namespace Async_Inn
             services.AddTransient<IHotel, HotelRepo>();
             services.AddTransient<IAmentity, AmentityRepo>();
             services.AddTransient<IRoom, RoomRepo>();
+            services.AddTransient<IHotelRoom, HotelRoomRepo>();
+            services.AddSwaggerGen(options =>
+            {
+                // Make sure get the "using Statement"
+                options.SwaggerDoc("v1", new OpenApiInfo()
+                {
+                    Title = "Async Inn",
+                    Version = "v1",
+                });
+            });
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +62,11 @@ namespace Async_Inn
                 app.UseDeveloperExceptionPage();
             }
 
+            
+            app.UseSwaggerUI(options => {
+                options.SwaggerEndpoint("/api/v1/swagger.json", "Async Hotel");
+                options.RoutePrefix = "";
+            });
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
