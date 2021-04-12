@@ -37,10 +37,12 @@ namespace Async_Inn.Data
 
         public async Task<Room> GetRoom(int id)
         {
-            return await _context.Rooms.FindAsync(id);
+            
+            var gettingRooms = await _context.Rooms.FindAsync(id);
+            return gettingRooms;
         }
 
-        public async Task<IEnumerable<Room>> GetRooms()
+        public async Task<List<Room>> GetRooms()
         {
             return await _context.Rooms.ToListAsync();
         }
