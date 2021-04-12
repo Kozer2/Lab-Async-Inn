@@ -37,10 +37,12 @@ namespace Async_Inn.Data
 
         public async Task<Room> GetRoom(int id)
         {
-            return await _context.Rooms.FindAsync(id);
+            
+            var gettingRooms = await _context.Rooms.FindAsync(id);
+            return gettingRooms;
         }
 
-        public async Task<IEnumerable<Room>> GetRooms()
+        public async Task<List<Room>> GetRooms()
         {
             return await _context.Rooms.ToListAsync();
         }
@@ -77,10 +79,29 @@ namespace Async_Inn.Data
         }
 
         // create amentities for rooms
-        public Task CreateAmenity(int roomId, int amenityId)
+        public async Task<bool> AddAmenityToRoom(int roomId, int amenityId)
         {
-            throw new NotImplementedException();
+            var roomAmentity = new RoomAmenity
+            {
+                AmenityId = amenityId,
+                RoomId = roomId,
+            };
+             _context.RoomAmenities.Add(roomAmentity);
+            await _context.SaveChangesAsync();
+
+            return true;
+
         }
 
+        public async Task<bool> RemoveAmentityFromRoom(int roomId, int amenityId)
+        {
+            var roomAmenity = await _context.RoomAmenities.FindAsync(roomId, amenityId);
+            if (roomAmenity == null)
+                return false;
+
+            _context.RoomAmenities.Remove(roomAmenity);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

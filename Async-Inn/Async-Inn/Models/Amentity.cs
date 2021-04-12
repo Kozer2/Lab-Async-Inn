@@ -15,6 +15,11 @@ namespace Async_Inn.Models
         [StringLength(60)]
         public string Name { get; set; }
 
+        // NAVIGATION PROPERTIES
+        public List<RoomAmenity> RoomAmenities { get; set; }
+
+        // hotel room to be added 
+
 
     }
 }
