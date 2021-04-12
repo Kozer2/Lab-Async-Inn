@@ -77,10 +77,23 @@ namespace Async_Inn.Data
         }
 
         // create amentities for rooms
-        public Task CreateAmenity(int roomId, int amenityId)
+        public async Task<bool> AddAmenityToRoom(int roomId, int amenityId)
+        {
+            var roomAmentity = new RoomAmenity
+            {
+                AmenityId = amenityId,
+                RoomId = roomId,
+            };
+             _context.RoomAmenities.Add(roomAmentity);
+            await _context.SaveChangesAsync();
+
+            return true;
+
+        }
+
+        public Task DeleteAmenity(int roomId, int amenityId)
         {
             throw new NotImplementedException();
         }
-
     }
 }

@@ -86,6 +86,14 @@ namespace Async_Inn.Data
             );
 
 
+            modelBuilder.Entity<RoomAmenity>()
+                .HasKey(roomAmenity => new // anonymous type, similar to JS {}
+                {
+                    roomAmenity.RoomId,
+                    roomAmenity.AmenityId,
+                });
+
+
         }
 
 
@@ -95,14 +103,14 @@ namespace Async_Inn.Data
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Amentity> Amenities { get; set; }
+        public DbSet<RoomAmenity> RoomAmenities { get; set; }
 
         /*        
 
                 public DbSet<HotelRoom> HotelRooms { get; set; }
 
 
-
-                public DbSet<RoomAmenity> RoomAmenities { get; set; }*/
+*/
 
     }
 }

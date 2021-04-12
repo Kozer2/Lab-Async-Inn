@@ -8,12 +8,15 @@ namespace Async_Inn.Models
 {
     public class RoomAmenity
     {
-        [Required]
-        
+       
         public int AmenityId { get; set; }
 
-        [Required]
         public int RoomId { get; set; }
+
+        // NAVIGATION PROPERTIES
+        public Amentity Amenity { get; set; }
+        public Room Room { get; set; }
+
 
 
     }
