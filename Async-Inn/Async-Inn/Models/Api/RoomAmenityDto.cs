@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Async_Inn.Models
+namespace Async_Inn.Models.Api
 {
-    public class HotelDto
+    public class RoomAmenityDto
     {
         
         public int Id { get; set; }

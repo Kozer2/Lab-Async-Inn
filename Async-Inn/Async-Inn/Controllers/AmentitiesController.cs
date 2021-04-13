@@ -49,7 +49,7 @@ namespace Async_Inn.Controllers
                 return NotFound();
             }
 
-            return amentity;
+            return Ok(amentity);
         }
 
         // PUT: api/Amentities/5
