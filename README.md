@@ -23,10 +23,12 @@ I started work on adding the routes and I added the task to create and delete am
 
 
 
+
 # Lab 17 ---- Lab Async-Inn-Final
 
 [Link to deployed Azure site](https://async-inn20210412190832.azurewebsites.net/index.html) 
 
 This website is a WIP for a hotel chain.  
 TODO: add more amenity functionality and finish work
+
 

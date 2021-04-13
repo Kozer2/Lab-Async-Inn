@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Async_Inn</RootNamespace>
+    <UserSecretsId>00b220a7-75fa-456d-89ee-f47ed2813e20</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

@@ -22,9 +22,9 @@ namespace Async_Inn.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteHotelRoom(int id)
+        public async Task<bool> DeleteHotelRoom(int hotelId, int roomId)
         {
-            HotelRoom hotelRoom = await GetHotelRoom(id);
+            HotelRoom hotelRoom = await GetHotelRoom(hotelId, roomId);
             if (hotelRoom == null)
             {
                 return false;
@@ -35,10 +35,10 @@ namespace Async_Inn.Data
 
         }
 
-        public async Task<HotelRoom> GetHotelRoom(int id)
+        public async Task<HotelRoom> GetHotelRoom(int hotelId, int roomId)
         {
             
-            var gettingHotelRooms = await _context.HotelRooms.FindAsync(id);
+            var gettingHotelRooms = await _context.HotelRooms.FindAsync(hotelId, roomId);
             return gettingHotelRooms;
         }
 

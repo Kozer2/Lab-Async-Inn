@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Async_Inn.Models
+namespace Async_Inn.Models.Api
 {
-    public class HotelDto
+    public class HotelRoomDto
     {
         
-        public int Id { get; set; }
+        /*public int Id { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -34,7 +34,7 @@ namespace Async_Inn.Models
         [Required]
         [StringLength(50)] 
         public string Phone { get; set; }
-
+*/
 
     }
 }

@@ -96,19 +96,38 @@ namespace Async_Inn.Data
 
             modelBuilder.Entity<RoomAmenity>()
                 .HasData(
-                    new RoomAmenity { RoomId = 1, AmenityId = 1 }
+                    new RoomAmenity { RoomId = 1, AmenityId = 1 },
+                    new RoomAmenity { RoomId = 1, AmenityId = 2 },
+                    new RoomAmenity { RoomId = 1, AmenityId = 3 },
+                    new RoomAmenity { RoomId = 2, AmenityId = 1 },
+                    new RoomAmenity { RoomId = 2, AmenityId = 2 },
+                    new RoomAmenity { RoomId = 2, AmenityId = 3 },
+                    new RoomAmenity { RoomId = 3, AmenityId = 1 },
+                    new RoomAmenity { RoomId = 3, AmenityId = 2 },
+                    new RoomAmenity { RoomId = 3, AmenityId = 3 }
+                    
+
                 );
 
 
             modelBuilder.Entity<HotelRoom>()
                .HasKey(hotelRoom => new // anonymous type, similar to JS {}
                 {
-                  hotelRoom.HotelId,
-                   hotelRoom.RoomNumber,
+                  
+                   hotelRoom.HotelId,
                    hotelRoom.RoomID,
-                   hotelRoom.Rate,
-                   hotelRoom.PetFriendly,
+
                });
+
+            modelBuilder.Entity<HotelRoom>()
+                .HasData(
+                    new HotelRoom { HotelId = 1, RoomID = 1, RoomNumber = 201, Rate = 150, PetFriendly = true  },
+                    new HotelRoom { HotelId = 1, RoomID = 2, RoomNumber = 101, Rate = 50, PetFriendly = true },
+                    new HotelRoom { HotelId = 3, RoomID = 3, RoomNumber = 301, Rate = 1000, PetFriendly = false },
+                    new HotelRoom { HotelId = 2, RoomID = 1, RoomNumber = 201, Rate = 200, PetFriendly = true },
+                    new HotelRoom { HotelId = 2, RoomID = 3, RoomNumber = 401, Rate = 225, PetFriendly = false }
+                    );
+
         }
 
 

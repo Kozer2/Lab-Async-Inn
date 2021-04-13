@@ -30,17 +30,17 @@ namespace Async_Inn.Controllers
         }
 
         // GET: api/HotelRooms
-        [HttpGet]
+        [HttpGet("/api/Hotels/{hotelId}/Rooms")]
         public async Task<IEnumerable<HotelRoom>> GetHotelRooms()
         {
             return await _hotelRoomRepo.GetHotelRooms();
         }
 
         // GET: api/HotelRooms/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<HotelRoom>> GetHotelRoom(int id)
+        [HttpGet("/api/Hotels/{hotelId}/Rooms/{roomNumber}")]
+        public async Task<ActionResult<HotelRoom>> GetHotelRoom(int hotelId, int roomId)
         {
-            var hotelRoom = await _hotelRoomRepo.GetHotelRoom(id);
+            var hotelRoom = await _hotelRoomRepo.GetHotelRoom(hotelId, roomId);
 
             if (hotelRoom == null)
             {
@@ -81,9 +81,9 @@ namespace Async_Inn.Controllers
 
         // DELETE: api/HotelRooms/5
         [HttpDelete("/api/Hotels/{hotelId}/Rooms/{roomNumber}")]
-        public async Task<IActionResult> DeleteHotelRoom(int id)
+        public async Task<IActionResult> DeleteHotelRoom(int hotelId, int roomId)
         {
-            await _hotelRoomRepo.DeleteHotelRoom(id);
+            await _hotelRoomRepo.DeleteHotelRoom(hotelId,  roomId);
 
             return NoContent();
         }
