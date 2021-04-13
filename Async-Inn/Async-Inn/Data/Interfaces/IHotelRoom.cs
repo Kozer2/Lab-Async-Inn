@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace Async_Inn.Data.Interfaces
 {
 
-   public interface IHotelRoom
+    public interface IHotelRoom
     {
         Task<List<HotelRoom>> GetHotelRooms();
         Task<HotelRoom> GetHotelRoom(int id);
         Task<bool> DeleteHotelRoom(int id);
         Task CreateHotelRoom(HotelRoom hotelRoom);
-        Task<bool> PutHotelRoom( HotelRoom hotelRoom);
+        Task<bool> PutHotelRoom(HotelRoom hotelRoom);
 
-
+    }
 }

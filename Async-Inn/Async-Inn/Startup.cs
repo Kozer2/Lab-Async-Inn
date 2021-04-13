@@ -63,9 +63,14 @@ namespace Async_Inn
             }
 
             
+            app.UseSwagger(options => {
+                options.RouteTemplate = "/api/{documentName}/swagger.json";
+
             app.UseSwaggerUI(options => {
-                options.SwaggerEndpoint("/api/v1/swagger.json", "Async Hotel");
+                options.SwaggerEndpoint("/api/v1/swagger.json", "Async Inn lab");
                 options.RoutePrefix = "";
+              });
+
             });
             app.UseRouting();
 
