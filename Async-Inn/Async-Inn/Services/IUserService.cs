@@ -10,6 +10,6 @@ namespace Async_Inn.Services
 {
     public interface IUserService
     {
-        Task<ApplicationUser> Register(RegisterData data, ModelStateDictionary modelState);
+        Task<UserDto> Register(RegisterData data, ModelStateDictionary modelState);
     }
 }
