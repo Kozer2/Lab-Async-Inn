@@ -1,4 +1,5 @@
 ﻿using Async_Inn.Models.Api;
+using Async_Inn.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,8 @@ namespace Async_Inn.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+
+        public UsersController(IUserService userService)
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterData data)
         {
