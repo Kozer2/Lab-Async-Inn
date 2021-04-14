@@ -29,5 +29,11 @@ namespace Async_Inn.Controllers
             
             return Ok(user);
         }
+
+        [HttpPost("Login")]
+        public async Task<ActionResult<UserDto>> Login(LoginData data)
+        {
+            var user = await userService.Authenticate()
+        }
     }
 }

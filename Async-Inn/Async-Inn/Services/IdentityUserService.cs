@@ -14,6 +14,24 @@ namespace Async_Inn.Services
         {
             this.userManager = userManager;
         }
+
+        public async Task<UserDto> Authenticate(string username, string password)
+        {
+            var user = await userManager.FindByNameAsync(username);
+            if(await userManager.CheckPasswordAsync(user, password))
+            {
+                return new UserDto
+                {
+                    Id = user.Id,
+                    Username = user.UserName,
+                };
+            }
+            await userManager.AccessFailedAsync(user);
+
+            return null;
+
+        }
+
         public async Task<UserDto> Register(RegisterData data, ModelStateDictionary modelState)
         {
             var user = new ApplicationUser
