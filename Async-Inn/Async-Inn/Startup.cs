@@ -1,6 +1,7 @@
 using Async_Inn.Data;
 using Async_Inn.Data.Interfaces;
 using Async_Inn.Models.Identity;
+using Async_Inn.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +46,8 @@ namespace Async_Inn
                     options.User.RequireUniqueEmail = true;
                 })
                 .AddEntityFrameworkStores<AsyncInnDbContext>();
+
+            services.AddTransient<IUserService, IdentityUserService>();
 
             services.AddTransient<IHotel, HotelRepo>();
             services.AddTransient<IAmentity, AmentityRepo>();

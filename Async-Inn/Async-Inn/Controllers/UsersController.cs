@@ -13,12 +13,21 @@ namespace Async_Inn.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IUserService userService;
 
         public UsersController(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterData data)
         {
-            return Ok();
+            var user = await userService.Register(data, this.ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            
+            return Ok(user);
         }
     }
 }
