@@ -24,7 +24,7 @@ namespace Async_Inn.Models
         public bool PetFriendly { get; set; }
 
         // NAVIGATION PROPERTIES
-        public Hotel hotel { get; set; }
+        public HotelDto hotel { get; set; }
         public Room Room { get; set; }
     }
 }

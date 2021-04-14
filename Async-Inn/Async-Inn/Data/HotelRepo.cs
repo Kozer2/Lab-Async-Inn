@@ -18,7 +18,7 @@ namespace Async_Inn.Data
         }
 
 
-        public async Task CreateHotel(Hotel hotel)
+        public async Task CreateHotel(HotelDto hotel)
         {
             _context.Hotels.Add(hotel);
             await _context.SaveChangesAsync();
@@ -26,7 +26,7 @@ namespace Async_Inn.Data
 
         public async Task<bool> DeleteHotel(int id)
         {
-            Hotel hotel = await GetHotel(id);
+            HotelDto hotel = await GetHotel(id);
             if(hotel == null)
             {
                 return false;
@@ -36,12 +36,12 @@ namespace Async_Inn.Data
             return true;
         }
 
-        public async Task<Hotel> GetHotel(int id)
+        public async Task<HotelDto> GetHotel(int id)
         {
             return await _context.Hotels.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Hotel>> GetHotels()
+        public async Task<IEnumerable<HotelDto>> GetHotels()
         {
             return await _context.Hotels.ToListAsync();
         }
@@ -51,7 +51,7 @@ namespace Async_Inn.Data
             return _context.Hotels.Any(e => e.Id == id);
         }
 
-        public async Task<bool> PutHotel( Hotel hotel)
+        public async Task<bool> PutHotel( HotelDto hotel)
         {
             _context.Entry(hotel).State = EntityState.Modified;
 
