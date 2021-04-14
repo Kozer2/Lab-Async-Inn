@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Async_Inn.Models;
+using Async_Inn.Models.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Async_Inn.Data
 {
-    public class AsyncInnDbContext : DbContext
+    public class AsyncInnDbContext : IdentityDbContext<ApplicationUser>
     {
         public AsyncInnDbContext(DbContextOptions options) : base(options)
         {
@@ -17,7 +19,7 @@ namespace Async_Inn.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // This calls the base method, but does nothing
-            // base.OnModelCreating(modelBuilder);
+             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<HotelDto>().HasData(
               new HotelDto { Id = 1, Name = "Cedar Rapids Blast from the Past Super Fun Time Hotel", 
