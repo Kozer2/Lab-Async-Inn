@@ -9,6 +9,8 @@ namespace Async_Inn.Models.Api
     public class HotelDto
     {
         
+
+        // stuff to do stuff goes here but idk how to do the stuff to do the other stuff for it to do stuff 
         public int Id { get; set; }
 
         [Required]
@@ -35,6 +37,9 @@ namespace Async_Inn.Models.Api
         [StringLength(50)] 
         public string Phone { get; set; }
 
+        public List<HotelRoomDto> HotelRoom { get; set; }
+
+        public List<RoomAmenityDto> RoomAmenity { get; set; }
 
     }
 }

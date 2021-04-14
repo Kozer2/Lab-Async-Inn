@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Async_Inn.Models;
+using Async_Inn.Models.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Async_Inn.Data
 {
-    public class AsyncInnDbContext : DbContext
+    public class AsyncInnDbContext : IdentityDbContext<ApplicationUser>
     {
         public AsyncInnDbContext(DbContextOptions options) : base(options)
         {
@@ -17,23 +19,23 @@ namespace Async_Inn.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // This calls the base method, but does nothing
-            // base.OnModelCreating(modelBuilder);
+             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Hotel>().HasData(
-              new Hotel { Id = 1, Name = "Cedar Rapids Blast from the Past Super Fun Time Hotel", 
+            modelBuilder.Entity<HotelDto>().HasData(
+              new HotelDto { Id = 1, Name = "Cedar Rapids Blast from the Past Super Fun Time Hotel", 
                   StreetAddress = "124 Hoover St.", 
                   City = "Cedar Rapids",
                   State = "Iowa", 
                   Country = "USA", 
                   Phone = "319-333-6666"},
-              new Hotel { Id = 2, Name = "Orlando Florida \"You won't be mugged here!\" Super Fun time Hotel",
+              new HotelDto { Id = 2, Name = "Orlando Florida \"You won't be mugged here!\" Super Fun time Hotel",
                   StreetAddress = "124 Florida St.",
                   City = "Orlando",
                   State = "Florida",
                   Country = "USA",
                   Phone = "407-333-6666"
               },
-              new Hotel { Id = 3, Name = "Ninja Warriors Eat Free NOT Super Fun Time Hotel.",
+              new HotelDto { Id = 3, Name = "Ninja Warriors Eat Free NOT Super Fun Time Hotel.",
                   StreetAddress = "100 Ninja Blvd.",
                   City = "Ninja Land",
                   State = "Maine",
@@ -134,7 +136,7 @@ namespace Async_Inn.Data
 
 
 
-        public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<HotelDto> Hotels { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Amentity> Amenities { get; set; }
 

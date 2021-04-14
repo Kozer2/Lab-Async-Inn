@@ -8,11 +8,11 @@ namespace Async_Inn.Data.Interfaces
 {
     public interface IHotel
     {
-        Task<IEnumerable<Hotel>> GetHotels();
+        Task<IEnumerable<HotelDto>> GetHotels();
         Task<HotelDto> GetHotel(int id);
         Task<bool> DeleteHotel(int id);
-        Task CreateHotel(Hotel hotel);
-        Task<bool> PutHotel( Hotel hotel);
+        Task CreateHotel(HotelDto hotel);
+        Task<bool> PutHotel( HotelDto hotel);
 
     }
 }
