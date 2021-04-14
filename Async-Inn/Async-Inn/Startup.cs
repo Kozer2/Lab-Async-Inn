@@ -44,7 +44,7 @@ namespace Async_Inn
                 {
                     options.User.RequireUniqueEmail = true;
                 })
-                .AddEntityFrameworkStores<DbContext>();
+                .AddEntityFrameworkStores<AsyncInnDbContext>();
 
             services.AddTransient<IHotel, HotelRepo>();
             services.AddTransient<IAmentity, AmentityRepo>();
