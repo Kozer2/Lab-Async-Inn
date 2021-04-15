@@ -33,7 +33,7 @@ TODO: add more amenity functionality and finish work
 
 In this lab I added login functionality with the ability to register.   
 To do this, you need to hit the green arrow to run the lab, scroll down on Swagger until you see Register and Login.   
-![Register](Assests/register.PNG "Register")  
+![Register](Assests/register1.PNG "Register")  
 Open up the register tab and hit try me. Fill in the blanks on the form and hit execute.   
 
 Then go to login. 
