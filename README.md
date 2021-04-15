@@ -21,12 +21,22 @@ DbContext was doing.
 Routes: TBD
 I started work on adding the routes and I added the task to create and delete amentities in the IRoom interface. 
 
+
+# Lab 16
+### 04/13/2021
+Routes: TBD
+Tried to start on the DTOs but not sure where I am at it
+
+
+
+
 # Lab 17 ---- Lab Async-Inn-Final
 
 [Link to deployed Azure site](https://async-inn20210412190832.azurewebsites.net/index.html) 
 
 This website is a WIP for a hotel chain.  
 TODO: add more amenity functionality and finish work
+
 
 # Lab 18
 ### 04/14/2021  
@@ -40,3 +50,4 @@ Then go to login.
 ![Login](Assests/login1.PNG "Login")
 Fill out the form with the info you put in in register.   
 Voli! You have registered and logged in. 
+
