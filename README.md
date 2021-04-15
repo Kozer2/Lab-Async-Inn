@@ -21,10 +21,12 @@ DbContext was doing.
 Routes: TBD
 I started work on adding the routes and I added the task to create and delete amentities in the IRoom interface. 
 
+
 # Lab 16
 ### 04/13/2021
 Routes: TBD
 Tried to start on the DTOs but not sure where I am at it
+
 
 
 
@@ -35,4 +37,17 @@ Tried to start on the DTOs but not sure where I am at it
 This website is a WIP for a hotel chain.  
 TODO: add more amenity functionality and finish work
 
+
+# Lab 18
+### 04/14/2021  
+
+In this lab I added login functionality with the ability to register.   
+To do this, you need to hit the green arrow to run the lab, scroll down on Swagger until you see Register and Login.   
+![Register](Assests/register1.PNG "Register")  
+Open up the register tab and hit try me. Fill in the blanks on the form and hit execute.   
+
+Then go to login. 
+![Login](Assests/login1.PNG "Login")
+Fill out the form with the info you put in in register.   
+Voli! You have registered and logged in. 
 
