@@ -9,6 +9,6 @@ namespace Async_Inn.Models.Api
     {
         public string Id { get; set; }
         public string Username { get; set; }
-        public string Token { get; internal set; }
+        public string Token { get; set; }
     }
 }
