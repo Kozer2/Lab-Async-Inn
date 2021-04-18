@@ -2,6 +2,7 @@ using Async_Inn.Data;
 using Async_Inn.Data.Interfaces;
 using Async_Inn.Models.Identity;
 using Async_Inn.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -50,6 +51,18 @@ namespace Async_Inn
             services.AddTransient<IUserService, IdentityUserService>();
             services.AddTransient<JwtTokenService>();
 
+            services.
+                AddAuthentication(options =>
+                {
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = JwtTokenService.GetValidationParameters(Configuration);
+                })
+
+
+
             services.AddTransient<IHotel, HotelRepo>();
             services.AddTransient<IAmentity, AmentityRepo>();
             services.AddTransient<IRoom, RoomRepo>();
@@ -88,6 +101,9 @@ namespace Async_Inn
             });
             app.UseRouting();
 
+            // read who the user is, set our controller.user
+            app.UseAuthentication();
+            // check authorization attributes
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
