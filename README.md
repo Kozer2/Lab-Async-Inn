@@ -51,3 +51,26 @@ Then go to login.
 Fill out the form with the info you put in in register.   
 Voli! You have registered and logged in. 
 
+
+
+# Lab19
+### 04/18/2021
+This is the final iteration of this lab. It is sadly, not 100% working yet and I may come back. 
+Lab description:  
+Add 3 new roles to your application with the following permissions:  
+
+District Manager  
+District manager can do full CRUD operations on all Hotel, HotelRoom, Room, and Amenity entities.  
+The district manager can create accounts for all other roles  
+
+Property Manager  
+Property Manager’s can add/update/read new HotelRooms to hotels, and amenities to rooms. A property manager cannot create new room entities or hotel entities.  
+The property manager can only create accounts for Agents  
+
+Agent  
+An agent can only update/read a HotelRoom and add/delete amenities to rooms  
+Anonymous users  
+anonymous users can only view all GET routes  
+All routes should be locked down to Authorize. Override the [AllowAnonymous]on the appropriate routes for anonymous users.  
+
+I added the correct roles including an extra role. 

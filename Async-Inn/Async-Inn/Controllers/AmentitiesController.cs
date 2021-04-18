@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Async_Inn.Data;
 using Async_Inn.Models;
 using Async_Inn.Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Async_Inn.Controllers
 {
+    [Authorize(Roles = "District Manager, Property Manager, Agent")]
     [Route("api/[controller]")]
     [ApiController]
     public class AmentitiesController : ControllerBase
@@ -32,6 +34,7 @@ namespace Async_Inn.Controllers
         }
 
         // GET: api/Amentities
+        [Authorize(Roles = "District Manager, Property Manager, Agent")]
         [HttpGet]
         public async Task<IEnumerable<Amentity>> GetAmentities()
         {
@@ -39,6 +42,7 @@ namespace Async_Inn.Controllers
         }
 
         // GET: api/Amentities/5
+        [Authorize(Roles = "District Manager, Property Manager, Agent")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Amentity>> GetAmentity(int id)
         {
@@ -54,6 +58,7 @@ namespace Async_Inn.Controllers
 
         // PUT: api/Amentities/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "District Manager, Property Manager, Agent")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAmentity(int id, Amentity amentity)
         {
@@ -73,6 +78,7 @@ namespace Async_Inn.Controllers
 
         // POST: api/Amentities
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize(Roles = "District Manager, Property Manager")]
         [HttpPost]
         public async Task<ActionResult<Amentity>> PostAmentity(Amentity amentity)
         {
@@ -83,6 +89,7 @@ namespace Async_Inn.Controllers
         }
 
         // DELETE: api/Amentities/5
+        [Authorize(Roles = "District Manager")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAmentity(int id)
         {
