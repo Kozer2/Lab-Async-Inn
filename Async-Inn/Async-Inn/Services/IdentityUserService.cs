@@ -3,6 +3,7 @@ using Async_Inn.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -10,35 +11,34 @@ namespace Async_Inn.Services
 {
     public class IdentityUserService : IUserService
     {
-        private UserManager<ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly JwtTokenService tokenService;
 
         public IdentityUserService(UserManager<ApplicationUser> userManager, JwtTokenService tokenService)
         {
             this.userManager = userManager;
+            this.tokenService = tokenService;
         }
 
         public async Task<UserDto> Authenticate(string username, string password)
         {
             var user = await userManager.FindByNameAsync(username);
-            if(await userManager.CheckPasswordAsync(user, password))
+
+            if (await userManager.CheckPasswordAsync(user, password))
             {
                 return await GetUserDtoAsync(user);
             }
-            await userManager.AccessFailedAsync(user);
-            
-            return null;
 
+            if (user != null)
+                await userManager.AccessFailedAsync(user);
+
+            return null;
         }
 
-        private async Task<UserDto> GetUserDtoAsync(ApplicationUser user)
+        public async Task<UserDto> GetUser(ClaimsPrincipal principal)
         {
-            return new UserDto
-            {
-                Id = user.Id,
-                Username = user.UserName,
-                Token = await tokenService.GetToken(user, TimeSpan.FromMinutes(5)),
-            };
+            var user = await userManager.GetUserAsync(principal);
+            return await GetUserDtoAsync(user);
         }
 
         public async Task<UserDto> Register(RegisterData data, ModelStateDictionary modelState)
@@ -48,14 +48,26 @@ namespace Async_Inn.Services
                 UserName = data.Username,
                 Email = data.Email,
                 PhoneNumber = data.PhoneNumber,
+                // PasswordHash = data.Password, // NO
             };
 
             var result = await userManager.CreateAsync(user, data.Password);
 
             if (result.Succeeded)
-                return await GetUserDtoAsync(user);
+            {
+                if (data.Roles?.Any() == true)
+                {
+                    await userManager.AddToRolesAsync(user, data.Roles);
+                }
+                else
+                {
+                    await userManager.AddToRoleAsync(user, "guest");
+                }
 
-            foreach(var error in result.Errors)
+                return await GetUserDtoAsync(user);
+            }
+
+            foreach (var error in result.Errors)
             {
                 var errorKey =
                     error.Code.Contains("Password") ? nameof(data.Password) :
@@ -65,14 +77,18 @@ namespace Async_Inn.Services
                 modelState.AddModelError(errorKey, error.Description);
             }
 
-
             return null;
         }
 
-        public async Task<UserDto> GetUser(ClaimsPrincipal principal)
+        private async Task<UserDto> GetUserDtoAsync(ApplicationUser user)
         {
-            var user = await userManager.GetUserAsync(principal);
-            return await GetUserDtoAsync(user);
+            return new UserDto
+            {
+                Id = user.Id,
+                Username = user.UserName,
+                Token = await tokenService.GetToken(user, TimeSpan.FromMinutes(5)),
+                Roles = await userManager.GetRolesAsync(user),
+            };
         }
     }
 }

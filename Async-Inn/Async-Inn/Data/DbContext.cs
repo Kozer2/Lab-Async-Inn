@@ -26,6 +26,7 @@ namespace Async_Inn.Data
             SeedRole(modelBuilder, "Administrator");
             SeedRole(modelBuilder, "Manager");
             SeedRole(modelBuilder, "Employee");
+            SeedRole(modelBuilder, "Guest");
 
 
             modelBuilder.Entity<HotelDto>().HasData(

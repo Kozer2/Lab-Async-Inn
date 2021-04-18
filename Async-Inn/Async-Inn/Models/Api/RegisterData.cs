@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Async_Inn.Models.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace Async_Inn.Models.Api
         [Required]
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        // allow specifying roles when registering
+        public List<string> Roles { get; set; }
     }
 }

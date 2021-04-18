@@ -27,7 +27,9 @@ namespace Async_Inn.Controllers
         {
             var user = await userService.Register(data, this.ModelState);
             if (!ModelState.IsValid)
+            {
                 return BadRequest(new ValidationProblemDetails(ModelState));
+            }
 
             return Ok(user);
         }
