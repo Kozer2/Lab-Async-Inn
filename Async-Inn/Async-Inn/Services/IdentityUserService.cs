@@ -20,16 +20,21 @@ namespace Async_Inn.Services
             var user = await userManager.FindByNameAsync(username);
             if(await userManager.CheckPasswordAsync(user, password))
             {
-                return new UserDto
-                {
-                    Id = user.Id,
-                    Username = user.UserName,
-                };
+                return GetUserDto(user);
             }
             await userManager.AccessFailedAsync(user);
-
+            
             return null;
 
+        }
+
+        private static UserDto GetUserDto(ApplicationUser user)
+        {
+            return new UserDto
+            {
+                Id = user.Id,
+                Username = user.UserName,
+            };
         }
 
         public async Task<UserDto> Register(RegisterData data, ModelStateDictionary modelState)
