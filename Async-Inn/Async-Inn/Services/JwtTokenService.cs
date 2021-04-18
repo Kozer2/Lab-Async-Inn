@@ -50,6 +50,18 @@ namespace Async_Inn.Services
             return new SymmetricSecurityKey(secretBytes);
         }
 
+        internal static TokenValidationParameters GetValidationParameters(IConfiguration configuration)
+        {
+            return new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = GetSecurityKey(configuration),
 
+                // simplify testing
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+            };
+        }
     }
 }
