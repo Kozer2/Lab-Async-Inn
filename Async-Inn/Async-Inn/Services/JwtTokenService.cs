@@ -7,5 +7,6 @@ namespace Async_Inn.Services
 {
     public class JwtTokenService
     {
+
     }
 }

@@ -9,8 +9,9 @@ namespace Async_Inn.Services
     public class IdentityUserService : IUserService
     {
         private UserManager<ApplicationUser> userManager;
+        private readonly JwtTokenService tokenService;
 
-        public IdentityUserService(UserManager<ApplicationUser> userManager)
+        public IdentityUserService(UserManager<ApplicationUser> userManager, JwtTokenService tokenService)
         {
             this.userManager = userManager;
         }

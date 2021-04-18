@@ -48,6 +48,7 @@ namespace Async_Inn
                 .AddEntityFrameworkStores<AsyncInnDbContext>();
 
             services.AddTransient<IUserService, IdentityUserService>();
+            services.AddTransient<JwtTokenService>();
 
             services.AddTransient<IHotel, HotelRepo>();
             services.AddTransient<IAmentity, AmentityRepo>();
