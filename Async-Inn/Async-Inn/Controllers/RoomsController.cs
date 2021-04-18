@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Async_Inn.Data;
 using Async_Inn.Models;
 using Async_Inn.Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Async_Inn.Controllers
 {
+    [Authorize(Roles = "District Manager, Property Manager, Agent")]
     [Route("api/[controller]")]
     [ApiController]
     public class RoomsController : ControllerBase
@@ -32,6 +34,7 @@ namespace Async_Inn.Controllers
         }
 
         // GET: api/Rooms
+        [Authorize(Roles = "District Manager, Property Manager, Agent")]
         [HttpGet]
         public async Task<IEnumerable<Room>> GetRooms()
         {
@@ -39,6 +42,7 @@ namespace Async_Inn.Controllers
         }
 
         // GET: api/Rooms/5
+        [Authorize(Roles = "District Manager, Property Manager, Agent")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
@@ -53,6 +57,7 @@ namespace Async_Inn.Controllers
         }
 
         // PUT: api/Rooms/5
+        [Authorize(Roles = "District Manager, Property Manager, Agent")]
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRoom(int id, Room room)
@@ -71,6 +76,7 @@ namespace Async_Inn.Controllers
         }
 
         // POST: api/Rooms
+        [Authorize(Roles = "District Manager, Property Manager")]
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
@@ -82,6 +88,7 @@ namespace Async_Inn.Controllers
         }
 
         // DELETE: api/Rooms/5
+        [Authorize(Roles = "District Manager")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
@@ -91,6 +98,7 @@ namespace Async_Inn.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "District Manager, Property Manager")]
         [HttpPost("{roomId}/Amenity/{amenityId}")]
         public async Task<IActionResult> AmenityAddToRoom(int roomId, int amenityId)
         {
@@ -100,7 +108,7 @@ namespace Async_Inn.Controllers
 
             return NoContent();
         }
-
+        [Authorize(Roles = "District Manager")]
         [HttpDelete("{roomId}/Amenity/{amenityId}")]
         public async Task<IActionResult> AmenityRemoveFromRoom(int roomId, int amenityId)
         {

@@ -23,9 +23,9 @@ namespace Async_Inn.Data
              base.OnModelCreating(modelBuilder);
 
 
-            SeedRole(modelBuilder, "Administrator");
-            SeedRole(modelBuilder, "Manager");
-            SeedRole(modelBuilder, "Employee");
+            SeedRole(modelBuilder, "District Manager");
+            SeedRole(modelBuilder, "Property Manager");
+            SeedRole(modelBuilder, "Agent");
             SeedRole(modelBuilder, "Guest");
 
 
