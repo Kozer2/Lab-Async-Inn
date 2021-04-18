@@ -3,6 +3,7 @@ using Async_Inn.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Async_Inn.Services
@@ -66,6 +67,12 @@ namespace Async_Inn.Services
 
 
             return null;
+        }
+
+        public async Task<UserDto> GetUser(ClaimsPrincipal principal)
+        {
+            var user = await userManager.GetUserAsync(principal);
+            return await GetUserDtoAsync(user);
         }
     }
 }

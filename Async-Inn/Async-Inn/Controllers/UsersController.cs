@@ -1,5 +1,6 @@
 ﻿using Async_Inn.Models.Api;
 using Async_Inn.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,16 +21,18 @@ namespace Async_Inn.Controllers
             this.userService = userService;
         }
 
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<ActionResult<UserDto>> Register(RegisterData data)
         {
             var user = await userService.Register(data, this.ModelState);
             if (!ModelState.IsValid)
                 return BadRequest(new ValidationProblemDetails(ModelState));
-            
+
             return Ok(user);
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<ActionResult<UserDto>> Login(LoginData data)
         {
@@ -38,6 +41,12 @@ namespace Async_Inn.Controllers
                 return Unauthorized();
 
             return user;
+        }
+        [Authorize]
+        [HttpGet("Self")]
+        public async Task<UserDto> Self()
+        {
+            return await userService.GetUser(this.User);
         }
     }
 }
