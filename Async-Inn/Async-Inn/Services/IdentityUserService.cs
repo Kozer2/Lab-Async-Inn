@@ -2,6 +2,7 @@
 using Async_Inn.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Threading.Tasks;
 
 namespace Async_Inn.Services
@@ -21,7 +22,7 @@ namespace Async_Inn.Services
             var user = await userManager.FindByNameAsync(username);
             if(await userManager.CheckPasswordAsync(user, password))
             {
-                return GetUserDto(user);
+                return await GetUserDtoAsync(user);
             }
             await userManager.AccessFailedAsync(user);
             
@@ -29,12 +30,13 @@ namespace Async_Inn.Services
 
         }
 
-        private static UserDto GetUserDto(ApplicationUser user)
+        private async Task<UserDto> GetUserDtoAsync(ApplicationUser user)
         {
             return new UserDto
             {
                 Id = user.Id,
                 Username = user.UserName,
+                Token = await tokenService.GetToken(user, TimeSpan.FromMinutes(5)),
             };
         }
 
@@ -50,11 +52,7 @@ namespace Async_Inn.Services
             var result = await userManager.CreateAsync(user, data.Password);
 
             if (result.Succeeded)
-                return new UserDto
-                {
-                    Id = user.Id,
-                    Username = user.UserName,
-                };
+                return await GetUserDtoAsync(user);
 
             foreach(var error in result.Errors)
             {
