@@ -81,6 +81,14 @@ namespace Async_Inn
                     Title = "Async Inn",
                     Version = "v1",
                 });
+
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer,"
+                });
                 options.OperationFilter<AuthenticationRequirementOperationFilter>();
             });
 
