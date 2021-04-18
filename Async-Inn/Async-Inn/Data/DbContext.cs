@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Async_Inn.Models;
 using Async_Inn.Models.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,12 @@ namespace Async_Inn.Data
         {
             // This calls the base method, but does nothing
              base.OnModelCreating(modelBuilder);
+
+
+            SeedRole(modelBuilder, "Administrator");
+            SeedRole(modelBuilder, "Manager");
+            SeedRole(modelBuilder, "Employee");
+
 
             modelBuilder.Entity<HotelDto>().HasData(
               new HotelDto { Id = 1, Name = "Cedar Rapids Blast from the Past Super Fun Time Hotel", 
@@ -132,9 +139,18 @@ namespace Async_Inn.Data
 
         }
 
-
-
-
+        private void SeedRole(ModelBuilder modelBuilder, string roleName)
+        {
+            modelBuilder.Entity<IdentityRole>()
+                .HasData(new IdentityRole
+                {
+                    Id = roleName.ToLower(),
+                    Name = roleName,
+                    NormalizedName = roleName.ToUpper(),
+                    ConcurrencyStamp = Guid.Empty.ToString(),
+                });
+            
+        }
 
         public DbSet<HotelDto> Hotels { get; set; }
         public DbSet<Room> Rooms { get; set; }

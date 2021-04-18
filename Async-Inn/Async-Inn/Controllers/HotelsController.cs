@@ -75,7 +75,7 @@ namespace Async_Inn.Controllers
 
         // PUT: api/Hotels/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Authorize(Roles = "Administrator, Manager")]
+        [Authorize(Roles = "Administrator, Manager, Employee")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHotel(int id, HotelDto hotel)
         {
