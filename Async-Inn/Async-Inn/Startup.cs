@@ -2,15 +2,19 @@ using Async_Inn.Data;
 using Async_Inn.Data.Interfaces;
 using Async_Inn.Models.Identity;
 using Async_Inn.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +24,6 @@ namespace Async_Inn
 {
     public class Startup
     {
-
-
-
         public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration configuration)
@@ -33,7 +34,15 @@ namespace Async_Inn
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services
+               .AddControllers(options =>
+               {
+                   options.Filters.Add(new AuthorizeFilter());
+               })
+               .AddNewtonsoftJson(options =>
+               {
+                   options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+               });
             services.AddDbContext<AsyncInnDbContext>(options => {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -48,6 +57,23 @@ namespace Async_Inn
                 .AddEntityFrameworkStores<AsyncInnDbContext>();
 
             services.AddTransient<IUserService, IdentityUserService>();
+            services.AddTransient<JwtTokenService>();
+
+            services.
+                AddAuthentication(options =>
+                {
+                    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = JwtTokenService.GetValidationParameters(Configuration);
+                });
+
+            services.AddAuthorization();
+
+
 
             services.AddTransient<IHotel, HotelRepo>();
             services.AddTransient<IAmentity, AmentityRepo>();
@@ -61,6 +87,15 @@ namespace Async_Inn
                     Title = "Async Inn",
                     Version = "v1",
                 });
+
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer,"
+                });
+                options.OperationFilter<AuthenticationRequirementOperationFilter>();
             });
 
 
@@ -87,6 +122,11 @@ namespace Async_Inn
             });
             app.UseRouting();
 
+            // read who the user is, set our controller.user
+            app.UseAuthentication();
+            // check authorization attributes
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -101,5 +141,34 @@ namespace Async_Inn
                 });
             });
         }
+
+
+        private class AuthenticationRequirementOperationFilter : IOperationFilter
+        {
+            public void Apply(OpenApiOperation operation, OperationFilterContext context)
+            {
+                var hasAnonymous = context.ApiDescription.CustomAttributes().OfType<AllowAnonymousAttribute>().Any();
+                if (hasAnonymous)
+                    return;
+
+                operation.Security ??= new List<OpenApiSecurityRequirement>();
+
+                var scheme = new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Id = "Bearer",
+                        Type = ReferenceType.SecurityScheme,
+                    },
+                };
+                operation.Security.Add(new OpenApiSecurityRequirement
+                {
+                    [scheme] = new List<string>()
+                });
+            }
+        }
+
+
+
     }
 }
